@@ -40,7 +40,7 @@ namespace Valuator.Pages
             }
             else
             {
-                rank = ((float)text.Count(ch => char.IsLetter(ch)) / (float)text.Length).ToString();
+                rank = ((float)text.Count(ch => !char.IsLetter(ch)) / (float)text.Length).ToString();
             }
             _storage.Store(rankKey, rank);
 
