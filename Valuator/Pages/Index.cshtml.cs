@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using NATS.Client;
-using System.Text;
 
 namespace Valuator.Pages
 {
@@ -14,14 +12,13 @@ namespace Valuator.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
-        IConnection _c;
+        Nats _nats;
 
         public IndexModel(ILogger<IndexModel> logger, IStorage storage)
         {
             _logger = logger;
             _storage = storage;
-            ConnectionFactory cf = new ConnectionFactory();
-            _c = cf.CreateConnection();
+            _nats = new Nats();
         }
 
         public void OnGet()
@@ -47,7 +44,7 @@ namespace Valuator.Pages
             {
                 rank = ((float)text.Count(ch => !char.IsLetter(ch)) / (float)text.Length).ToString();
             }
-            _storage.Store(rankKey, rank);
+            //_storage.Store(rankKey, rank);
 
             string similarityKey = "SIMILARITY-" + id;
             //TODO: посчитать similarity и сохранить в БД по ключу similarityKey
@@ -64,7 +61,7 @@ namespace Valuator.Pages
             //TODO: сохранить в БД text по ключу textKey
             _storage.Store(textKey, text);
 
-            _c.Publish("foo", Encoding.UTF8.GetBytes("hello world"));
+            _nats.PubSub(id);
 
             return Redirect($"summary?id={id}");
         }
