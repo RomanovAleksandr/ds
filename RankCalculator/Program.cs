@@ -12,7 +12,6 @@ namespace RankCalculator
 {
     class Program
     {
-        private static bool _exit = false;
         private static IConnection _connection;
         private static readonly IStorage _storage = new RedisStorage();
         static void Main(string[] args)
@@ -21,13 +20,11 @@ namespace RankCalculator
             {
                 SubscribeQueueGroups();
 
-                Console.Clear();
-                Console.WriteLine($"Connected to {_connection.ConnectedUrl}.");
                 Console.WriteLine("Consumers started");
                 Console.ReadKey(true);
-                _exit = true;
 
-                _connection.Drain(5000);
+                _connection.Drain();
+                _connection.Close();
             }
         }
 
@@ -53,7 +50,7 @@ namespace RankCalculator
             };
 
             IAsyncSubscription s = _connection.SubscribeAsync(
-                "nats.demo.queuegroups", "load-balancing-queue", handler);
+                "valuator.processing.rank", "load-balancing-queue", handler);
         }
 
          private static void LogMessage(string message)

@@ -12,13 +12,13 @@ namespace Valuator.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
-        Nats _nats;
+        NatsMessageBroker _nats;
 
         public IndexModel(ILogger<IndexModel> logger, IStorage storage)
         {
             _logger = logger;
             _storage = storage;
-            _nats = new Nats();
+            _nats = new NatsMessageBroker();
         }
 
         public void OnGet()
@@ -33,18 +33,6 @@ namespace Valuator.Pages
             string id = Guid.NewGuid().ToString();
 
             string rankKey = "RANK-" + id;
-            //TODO: посчитать rank и сохранить в БД по ключу rankKey
-            string rank;
-            if(text == null)
-            {
-                text = "";
-                rank = "0";
-            }
-            else
-            {
-                rank = ((float)text.Count(ch => !char.IsLetter(ch)) / (float)text.Length).ToString();
-            }
-            //_storage.Store(rankKey, rank);
 
             string similarityKey = "SIMILARITY-" + id;
             //TODO: посчитать similarity и сохранить в БД по ключу similarityKey
@@ -61,7 +49,7 @@ namespace Valuator.Pages
             //TODO: сохранить в БД text по ключу textKey
             _storage.Store(textKey, text);
 
-            _nats.PubSub(id);
+            _nats.Send("valuator.processing.rank", id);
 
             return Redirect($"summary?id={id}");
         }
