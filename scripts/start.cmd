@@ -5,3 +5,6 @@ start /d ..\nginx\ nginx.exe
 
 start /d ..\RankCalculator\ dotnet run --no-build
 start /d ..\RankCalculator\ dotnet run --no-build
+
+start /d ..\EventsLogger\ dotnet run --no-build
+start /d ..\EventsLogger\ dotnet run --no-build

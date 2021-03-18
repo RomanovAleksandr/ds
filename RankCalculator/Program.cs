@@ -1,61 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
-using StackExchange.Redis;
 using NATS.Client;
 using Valuator;
+using System.Text.Json;
 
 namespace RankCalculator
 {
     class Program
     {
-        private static IConnection _connection;
-        private static readonly IStorage _storage = new RedisStorage();
         static void Main(string[] args)
         {
-            using (_connection = ConnectToNats())
-            {
-                SubscribeQueueGroups();
+            Console.WriteLine("Consumer started");
+            var storage = new RedisStorage();
+            var nats = new NatsMessageBroker();
 
-                Console.WriteLine("Consumers started");
-                Console.ReadKey(true);
+            ConnectionFactory cf = new ConnectionFactory();
+            using IConnection c = cf.CreateConnection();
 
-                _connection.Drain();
-                _connection.Close();
-            }
-        }
-
-        private static IConnection ConnectToNats()
-        {
-            ConnectionFactory factory = new ConnectionFactory();
-
-            var options = ConnectionFactory.GetDefaultOptions();
-            options.Url = "nats://localhost:4222";
-            
-            return factory.CreateConnection(options);
-        }
-
-        private static void SubscribeQueueGroups()
-        {
-            EventHandler<MsgHandlerEventArgs> handler = (sender, args) =>
+            var s = c.SubscribeAsync("valuator.processing.rank", "rank_calculator", (sender, args) =>
             {
                 string id = Encoding.UTF8.GetString(args.Message.Data);
-                LogMessage(id);
-                string text = _storage.Load("TEXT-"+id);
-                string rank = ((float)text.Count(ch => !char.IsLetter(ch)) / (float)text.Length).ToString();
-                _storage.Store("RANK-" + id, rank);
-            };
+                string text = storage.Load("TEXT-"+id);
+                double rank = (float)text.Count(ch => !char.IsLetter(ch)) / (float)text.Length;
+                storage.Store("RANK-" + id, rank.ToString());
+                Rank textSmilarity = new Rank(id, rank);
+                string rankJson = JsonSerializer.Serialize(textSmilarity);
+                nats.Send("valuator.rank_calculated", rankJson);
+                Console.WriteLine("Consuming: {0} from subject {1}", id, args.Message.Subject);
+            });
 
-            IAsyncSubscription s = _connection.SubscribeAsync(
-                "valuator.processing.rank", "load-balancing-queue", handler);
-        }
+            s.Start();
 
-         private static void LogMessage(string message)
-        {
-            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fffffff")} - {message}");
+            Console.WriteLine("Press Enter to exit");
+            Console.ReadLine();
+
+            s.Unsubscribe();
+
+            c.Drain();
+            c.Close();
         }
     }
 }

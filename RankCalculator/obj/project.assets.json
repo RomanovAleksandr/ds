@@ -1568,6 +1568,23 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "Valuator/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "NATS.Client": "0.12.0",
+          "StackExchange.Redis": "2.2.4"
+        },
+        "compile": {
+          "bin/placeholder/Valuator.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Valuator.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -5569,12 +5586,18 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "Valuator/1.0.0": {
+      "type": "project",
+      "path": "../Valuator/Valuator.csproj",
+      "msbuildProject": "../Valuator/Valuator.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "NATS.Client >= 0.12.0",
-      "StackExchange.Redis >= 2.2.4"
+      "StackExchange.Redis >= 2.2.4",
+      "Valuator >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5603,7 +5626,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\roman\\Documents\\2021\\ds\\Valuator\\Valuator.csproj": {
+              "projectPath": "C:\\Users\\roman\\Documents\\2021\\ds\\Valuator\\Valuator.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
