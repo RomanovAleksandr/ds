@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -30,6 +27,10 @@ namespace Valuator.Pages
         public IActionResult OnPost(string text)
         {
             _logger.LogDebug(text);
+            if(text == null)
+            {
+                return Redirect($"index");
+            }
 
             string id = Guid.NewGuid().ToString();
 

@@ -12,8 +12,6 @@ namespace Valuator
             CancellationTokenSource cts = new CancellationTokenSource();
 
             Task.Factory.StartNew(() => ProduceAsync(cts.Token, key, message), cts.Token);
-
-            //cts.Cancel();
         }
 
         static async Task ProduceAsync(CancellationToken ct, string key, string message)
