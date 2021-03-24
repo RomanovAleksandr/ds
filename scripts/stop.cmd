@@ -1,4 +1,4 @@
 taskkill /f /im valuator.exe
-/d "../nginx/" -s quit
+start /d "../nginx/"  nginx.exe -s quit
 taskkill /f /im RankCalculator.exe
 taskkill /f /im EventsLogger.exe
