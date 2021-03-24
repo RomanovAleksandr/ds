@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Threading;
+using Library;
 
 namespace Valuator.Pages
 {
@@ -23,8 +24,8 @@ namespace Valuator.Pages
         {
             _logger.LogDebug(id);
 
-            Similarity = Convert.ToDouble(_storage.Load("SIMILARITY-" + id));
-            var rankText = _storage.Load("RANK-" + id);
+            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id));
+            var rankText = _storage.Load(Constants.RANK + id);
             for (int retryCount = 0; retryCount < 20; retryCount++)
             {
                 if (rankText != null)
@@ -33,12 +34,12 @@ namespace Valuator.Pages
                     return;
                 }
                 Thread.Sleep(100);
-                rankText = _storage.Load("RANK-" + id);
+                rankText = _storage.Load(Constants.RANK + id);
             }
 
             //TODO: проинициализировать свойства Rank и Similarity сохранёнными в БД значениями
-            Rank = Convert.ToDouble(_storage.Load("RANK-" + id));
-            Similarity = Convert.ToDouble(_storage.Load("SIMILARITY-" + id));
+            Rank = Convert.ToDouble(_storage.Load(Constants.RANK + id));
+            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id));
         }
     }
 }

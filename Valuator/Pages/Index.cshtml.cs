@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using Library;
 
 namespace Valuator.Pages
 {
@@ -10,13 +11,13 @@ namespace Valuator.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
-        NatsMessageBroker _nats;
+        NatsMessageBroker _natsMessageBroker;
 
-        public IndexModel(ILogger<IndexModel> logger, IStorage storage)
+        public IndexModel(ILogger<IndexModel> logger, IStorage storage, NatsMessageBroker natsMessageBroker)
         {
             _logger = logger;
             _storage = storage;
-            _nats = new NatsMessageBroker();
+            _natsMessageBroker = natsMessageBroker;
         }
 
         public void OnGet()
@@ -34,19 +35,16 @@ namespace Valuator.Pages
 
             string id = Guid.NewGuid().ToString();
 
-            string rankKey = "RANK-" + id;
-
-            string similarityKey = "SIMILARITY-" + id;
             //TODO: посчитать similarity и сохранить в БД по ключу similarityKey
             int similarity = GetSimilarity(text);
-            _storage.Store(similarityKey, similarity.ToString());
-            PublishSimilarityCalculatedEvent(similarityKey, similarity);
+            _storage.Store(Constants.SIMILARITY + id, similarity.ToString());
+            
+            PublishSimilarityCalculatedEvent(Constants.SIMILARITY + id, similarity);
 
-            string textKey = "TEXT-" + id;
             //TODO: сохранить в БД text по ключу textKey
-            _storage.Store(textKey, text);
+            _storage.Store(Constants.TEXT + id, text);
 
-            _nats.Send("valuator.processing.rank", id);
+            _natsMessageBroker.Send("valuator.processing.rank", id);
 
             return Redirect($"summary?id={id}");
         }
@@ -63,7 +61,7 @@ namespace Valuator.Pages
         {
             Similarity textSmilarity = new Similarity(id, similarity);
             string similarityJson = JsonSerializer.Serialize(textSmilarity);
-            _nats.Send("valuator.similarity_calculated", similarityJson);
+            _natsMessageBroker.Send("valuator.similarity_calculated", similarityJson);
         }
     }
 }

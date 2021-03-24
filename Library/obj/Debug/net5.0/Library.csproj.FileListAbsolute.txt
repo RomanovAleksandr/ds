@@ -1,0 +1,12 @@
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.csprojAssemblyReference.cache
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.AssemblyInfoInputs.cache
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.AssemblyInfo.cs
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.csproj.CoreCompileInputs.cache
+C:\Users\roman\Documents\2021\ds\Library\bin\Debug\net5.0\Library.deps.json
+C:\Users\roman\Documents\2021\ds\Library\bin\Debug\net5.0\Library.dll
+C:\Users\roman\Documents\2021\ds\Library\bin\Debug\net5.0\ref\Library.dll
+C:\Users\roman\Documents\2021\ds\Library\bin\Debug\net5.0\Library.pdb
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.dll
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\ref\Library.dll
+C:\Users\roman\Documents\2021\ds\Library\obj\Debug\net5.0\Library.pdb

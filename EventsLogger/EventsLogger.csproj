@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-  <ProjectReference Include="..\Valuator\Valuator.csproj" />
-  <ProjectReference Include="..\RankCalculator\RankCalculator.csproj" />
-  <PackageReference Include="NATS.Client" Version="0.12.0" />
-</ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj" />
+  </ItemGroup>
 
 </Project>

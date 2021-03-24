@@ -8,9 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "EventsLogger/1.0.0": {
         "dependencies": {
-          "NATS.Client": "0.12.0",
-          "RankCalculator": "1.0.0",
-          "Valuator": "1.0.0"
+          "Library": "1.0.0"
         },
         "runtime": {
           "EventsLogger.dll": {}
@@ -34,6 +32,20 @@
       "Microsoft.Win32.SystemEvents/5.0.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       },
       "NATS.Client/0.12.0": {
@@ -311,6 +323,26 @@
       "System.Drawing.Common/5.0.0": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "5.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          },
+          "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       },
       "System.Globalization/4.3.0": {
@@ -396,7 +428,14 @@
           "System.Runtime": "4.3.1"
         }
       },
-      "System.IO.Pipelines/5.0.0": {},
+      "System.IO.Pipelines/5.0.0": {
+        "runtime": {
+          "lib/netcoreapp3.0/System.IO.Pipelines.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
       "System.Linq/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -788,6 +827,12 @@
         "dependencies": {
           "System.Security.AccessControl": "5.0.0",
           "System.Windows.Extensions": "5.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/System.Security.Permissions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       },
       "System.Security.Principal/4.3.0": {
@@ -857,6 +902,20 @@
       "System.Windows.Extensions/5.0.0": {
         "dependencies": {
           "System.Drawing.Common": "5.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Windows.Extensions.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       },
       "System.Xml.ReaderWriter/4.3.0": {
@@ -894,23 +953,13 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "RankCalculator/1.0.0": {
-        "dependencies": {
-          "NATS.Client": "0.12.0",
-          "StackExchange.Redis": "2.2.4",
-          "Valuator": "1.0.0"
-        },
-        "runtime": {
-          "RankCalculator.dll": {}
-        }
-      },
-      "Valuator/1.0.0": {
+      "Library/1.0.0": {
         "dependencies": {
           "NATS.Client": "0.12.0",
           "StackExchange.Redis": "2.2.4"
         },
         "runtime": {
-          "Valuator.dll": {}
+          "Library.dll": {}
         }
       }
     }
@@ -1586,12 +1635,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "RankCalculator/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Valuator/1.0.0": {
+    "Library/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

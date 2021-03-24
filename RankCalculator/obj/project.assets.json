@@ -1569,7 +1569,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Valuator/1.0.0": {
+      "Library/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -1577,14 +1577,11 @@
           "StackExchange.Redis": "2.2.4"
         },
         "compile": {
-          "bin/placeholder/Valuator.dll": {}
+          "bin/placeholder/Library.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Valuator.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+          "bin/placeholder/Library.dll": {}
+        }
       }
     }
   },
@@ -5587,17 +5584,15 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Valuator/1.0.0": {
+    "Library/1.0.0": {
       "type": "project",
-      "path": "../Valuator/Valuator.csproj",
-      "msbuildProject": "../Valuator/Valuator.csproj"
+      "path": "../Library/Library.csproj",
+      "msbuildProject": "../Library/Library.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "NATS.Client >= 0.12.0",
-      "StackExchange.Redis >= 2.2.4",
-      "Valuator >= 1.0.0"
+      "Library >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5627,8 +5622,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\roman\\Documents\\2021\\ds\\Valuator\\Valuator.csproj": {
-              "projectPath": "C:\\Users\\roman\\Documents\\2021\\ds\\Valuator\\Valuator.csproj"
+            "C:\\Users\\roman\\Documents\\2021\\ds\\Library\\Library.csproj": {
+              "projectPath": "C:\\Users\\roman\\Documents\\2021\\ds\\Library\\Library.csproj"
             }
           }
         }
@@ -5642,16 +5637,6 @@
     "frameworks": {
       "net5.0": {
         "targetAlias": "net5.0",
-        "dependencies": {
-          "NATS.Client": {
-            "target": "Package",
-            "version": "[0.12.0, )"
-          },
-          "StackExchange.Redis": {
-            "target": "Package",
-            "version": "[2.2.4, )"
-          }
-        },
         "imports": [
           "net461",
           "net462",
