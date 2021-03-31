@@ -11,7 +11,7 @@ namespace Valuator.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
-        NatsMessageBroker _natsMessageBroker;
+        private readonly NatsMessageBroker _natsMessageBroker;
 
         public IndexModel(ILogger<IndexModel> logger, IStorage storage, NatsMessageBroker natsMessageBroker)
         {
