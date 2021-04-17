@@ -22,10 +22,10 @@ namespace Valuator.Pages
 
         public void OnGet(string id)
         {
-            _logger.LogDebug(id);
+            _logger.LogDebug("LOOKUP: {0}, {1}", id, _storage.GetShardId(id));
 
-            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id));
-            var rankText = _storage.Load(Constants.RANK + id);
+            Similarity = Convert.ToDouble(_storage.Load(id, Constants.SIMILARITY + id));
+            var rankText = _storage.Load(id, Constants.RANK + id);
             for (int retryCount = 0; retryCount < 20; retryCount++)
             {
                 if (rankText != null)
@@ -34,12 +34,12 @@ namespace Valuator.Pages
                     return;
                 }
                 Thread.Sleep(100);
-                rankText = _storage.Load(Constants.RANK + id);
+                rankText = _storage.Load(id, Constants.RANK + id);
             }
 
             //TODO: проинициализировать свойства Rank и Similarity сохранёнными в БД значениями
-            Rank = Convert.ToDouble(_storage.Load(Constants.RANK + id));
-            Similarity = Convert.ToDouble(_storage.Load(Constants.SIMILARITY + id));
+            Rank = Convert.ToDouble(_storage.Load(id, Constants.RANK + id));
+            Similarity = Convert.ToDouble(_storage.Load(id, Constants.SIMILARITY + id));
         }
     }
 }

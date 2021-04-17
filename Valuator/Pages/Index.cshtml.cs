@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Library;
+using System.Collections.Generic;
 
 namespace Valuator.Pages
 {
@@ -12,12 +13,14 @@ namespace Valuator.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
         private readonly NatsMessageBroker _natsMessageBroker;
+        public readonly Dictionary<string, string> countries;
 
         public IndexModel(ILogger<IndexModel> logger, IStorage storage, NatsMessageBroker natsMessageBroker)
         {
             _logger = logger;
             _storage = storage;
             _natsMessageBroker = natsMessageBroker;
+            countries = Countries.countriesDict;
         }
 
         public void OnGet()
@@ -25,7 +28,7 @@ namespace Valuator.Pages
 
         }
 
-        public IActionResult OnPost(string text)
+        public IActionResult OnPost(string text, string shardId)
         {
             _logger.LogDebug(text);
             if(text == null)
@@ -34,15 +37,17 @@ namespace Valuator.Pages
             }
 
             string id = Guid.NewGuid().ToString();
+            _logger.LogDebug("LOOKUP: {0}, {1}", id, shardId);
+            _storage.StoreShardKey(id, shardId);
 
             //TODO: посчитать similarity и сохранить в БД по ключу similarityKey
             int similarity = GetSimilarity(text);
-            _storage.Store(Constants.SIMILARITY + id, similarity.ToString());
+            _storage.Store(id, Constants.SIMILARITY + id, similarity.ToString());
             
             PublishSimilarityCalculatedEvent(Constants.SIMILARITY + id, similarity);
 
             //TODO: сохранить в БД text по ключу textKey
-            _storage.Store(Constants.TEXT + id, text);
+            _storage.StoreText(id, Constants.TEXT + id, text);
 
             _natsMessageBroker.Send("valuator.processing.rank", id);
 

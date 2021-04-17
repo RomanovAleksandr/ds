@@ -23,11 +23,12 @@ namespace RankCalculator
             var subscription = connection.SubscribeAsync("valuator.processing.rank", "rank_calculator", (sender, args) =>
             {
                 string id = Encoding.UTF8.GetString(args.Message.Data);
-                string text = _storage.Load(Constants.TEXT + id);
+                string text = _storage.Load(id, Constants.TEXT + id);
                 double rank = CalculateRank(text);
-                _storage.Store(Constants.RANK + id, rank.ToString());
+                _storage.Store(id, Constants.RANK + id, rank.ToString());
                 PublishSimilarityCalculatedEvent(id, rank);
                 Console.WriteLine("Consuming: {0} from subject {1}", id, args.Message.Subject);
+                Console.WriteLine("LOOKUP: {0}, {1}", id, _storage.GetShardId(id));
             });
 
             subscription.Start();
