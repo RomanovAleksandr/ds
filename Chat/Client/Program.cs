@@ -28,9 +28,6 @@ namespace Client
                     // CONNECT
                     sender.Connect(remoteEP);
 
-                    Console.WriteLine("Удалённый адрес подключения сокета: {0}",
-                        sender.RemoteEndPoint.ToString());
-
                     // Подготовка данных к отправке
                     byte[] msg = Encoding.UTF8.GetBytes(message);
 
@@ -41,8 +38,7 @@ namespace Client
                     byte[] buf = new byte[1024];
                     int bytesRec = sender.Receive(buf);
 
-                    Console.WriteLine("Ответ:\n{0}",
-                        Encoding.UTF8.GetString(buf, 0, bytesRec));
+                    Console.WriteLine(Encoding.UTF8.GetString(buf, 0, bytesRec));
 
                     // RELEASE
                     sender.Shutdown(SocketShutdown.Both);
@@ -71,21 +67,7 @@ namespace Client
 
         static void Main(string[] args)
         {
-            if (args.Length != 3)
-            {
-                System.Console.WriteLine("Usage: Client <host> <port> <message>");
-                return;
-            }
-            
-            if (Int32.TryParse(args[1], out int port))
-            {
-                StartClient(args[0], port, args[2]);
-            }
-            else
-            {
-                Console.WriteLine("Invalid port");
-                return;
-            }
+            StartClient(args[0], Int32.Parse(args[1]), args[2]);
         }
     }
 }

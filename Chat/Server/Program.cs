@@ -36,11 +36,9 @@ namespace Server
 
                 while (true)
                 {
-                    Console.WriteLine("Ожидание соединения клиента...");
                     // ACCEPT
                     Socket handler = listener.Accept();
 
-                    Console.WriteLine("Получение данных...");
                     byte[] buf = new byte[1024];
                     string data = null;
                     do
@@ -50,7 +48,7 @@ namespace Server
                     }
                     while (handler.Available>0);
 
-                    Console.WriteLine("Полученный текст: {0}", data);
+                    Console.WriteLine(data);
                     messages.Add(data);
 
                     // Отправляем текст обратно клиенту
@@ -73,25 +71,7 @@ namespace Server
         }
         static void Main(string[] args)
         {
-            if (args.Length != 1)
-            {
-                System.Console.WriteLine("Usage: Server <port>");
-                return;
-            }
-            
-            if (Int32.TryParse(args[0], out int port))
-            {
-                Console.WriteLine("Запуск сервера...");
-                StartListening(11000);
-            }
-            else
-            {
-                Console.WriteLine("Invalid port");
-                return;
-            }
-            
-            Console.WriteLine("\nНажмите ENTER чтобы выйти...");
-            Console.Read();
+            StartListening(Int32.Parse(args[0]));
         }
     }
 }
