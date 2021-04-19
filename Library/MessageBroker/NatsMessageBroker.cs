@@ -10,12 +10,10 @@ namespace Library
     {
         public void Send(string key, string message)
         {
-            CancellationTokenSource cts = new CancellationTokenSource();
-
-            Task.Factory.StartNew(() =>  ProduceAsync(cts.Token, key, message), cts.Token);
+            Task.Factory.StartNew(() =>  ProduceAsync(key, message));
         }
 
-        private async Task ProduceAsync(CancellationToken ct, string key, string message)
+        private async Task ProduceAsync(string key, string message)
         {
             ConnectionFactory cf = new ConnectionFactory();
 
