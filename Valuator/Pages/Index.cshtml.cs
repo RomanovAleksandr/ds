@@ -12,10 +12,10 @@ namespace Valuator.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
-        private readonly NatsMessageBroker _natsMessageBroker;
+        private readonly IMessageBroker _natsMessageBroker;
         public readonly Dictionary<string, string> countries;
 
-        public IndexModel(ILogger<IndexModel> logger, IStorage storage, NatsMessageBroker natsMessageBroker)
+        public IndexModel(ILogger<IndexModel> logger, IStorage storage, IMessageBroker natsMessageBroker)
         {
             _logger = logger;
             _storage = storage;

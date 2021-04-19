@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Library
 {
-    public class NatsMessageBroker
+    public class NatsMessageBroker : IMessageBroker
     {
         public void Send(string key, string message)
         {
