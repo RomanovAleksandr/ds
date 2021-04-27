@@ -36,9 +36,14 @@ namespace Client
 
                     // RECEIVE
                     byte[] buf = new byte[1024];
-                    int bytesRec = sender.Receive(buf);
-
-                    Console.WriteLine(Encoding.UTF8.GetString(buf, 0, bytesRec));
+                    string data = null;
+                    do
+                    {
+                        int bytesRec = sender.Receive(buf);
+                        data += Encoding.UTF8.GetString(buf, 0, bytesRec);
+                    }
+                    while (sender.Available>0);
+                    Console.WriteLine(data);
 
                     // RELEASE
                     sender.Shutdown(SocketShutdown.Both);

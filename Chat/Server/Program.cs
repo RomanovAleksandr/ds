@@ -48,7 +48,7 @@ namespace Server
                     }
                     while (handler.Available>0);
 
-                    Console.WriteLine(data);
+                    Console.WriteLine("Message received: " + data);
                     messages.Add(data);
 
                     // Отправляем текст обратно клиенту
