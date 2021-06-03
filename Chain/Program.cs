@@ -75,7 +75,6 @@ namespace Chain
                 try
                 {
                     sender.Connect(remoteEP);
-                    Console.WriteLine("connect");
                     return;
                 }
                 catch (SocketException)
