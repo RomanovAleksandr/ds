@@ -11,6 +11,7 @@ namespace Chain
     {
         public static void Start(int listeningPort, string nextHost, int nextPort, bool initializer = false)
         {
+            int X = Int32.Parse(Console.ReadLine());
             IPAddress ipAddress = IPAddress.Any; 
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, listeningPort);
             Socket listener = new Socket(
@@ -30,8 +31,6 @@ namespace Chain
 
             Connect(sender, remoteEP);
             Socket handler = listener.Accept();
-            
-            int X = Int32.Parse(Console.ReadLine());
 
             if (initializer)
             {
