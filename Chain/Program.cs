@@ -66,6 +66,7 @@ namespace Chain
             {
                 Start(Int32.Parse(args[0]), args[1], Int32.Parse(args[2]), true);
             }
+            Console.ReadLine();
         }
         static void Connect(Socket sender, IPEndPoint remoteEP)
         {
